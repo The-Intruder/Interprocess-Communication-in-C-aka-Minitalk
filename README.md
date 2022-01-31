@@ -13,7 +13,7 @@
 # Preface
 
 This project is NOT quite straight-forward, and I haven't found any ressource 
-that explains this in a clear way, as a matter of fact, I haven't found any
+that explains it in a clear way, as a matter of fact, I haven't found any
 ressource that explains this project at all, so I thought to myself "Well 
 there's always a first time for everything, so why not do it youself!!". And 
 that is how I made the horrible thing that you're about to read, so be ready, 
@@ -57,38 +57,19 @@ bull£%!§.
 
 | Function | Description |
 | -------- | ----------- |
-
 | `write`  | Not even gonna try explaining this one. C'mon, get your SH%! 
 together |
-
-| `ft_printf` | Ol'reliable `printf`, but made by you, i.e. a crappy version of 
-the original `printf` called `ft_printf` |
-
-| `signal` | Prototyped `void (*signal(int sig, void (*func)(int)))(int)`, what 
-it basically does is that it keeps on listening for incoming SPECIFIC signals, 
-and whenever they come, it calls the function *(passed as its 2nd argument)* 
-with the signal number as its argument. **TL;DR** it executes a function wheneve
-a signal is received |
-
+| `ft_printf` | Ol' Reliable `printf`, but made by you, i.e. a crappy version of the original `printf` called `ft_printf` |
+| `signal` | Prototyped `void (*signal(int sig, void (*func)(int)))(int)`. What it basically does is that it keeps on listening for **specific** incoming signals. And whenever they come, it calls the function *(passed as its 2nd argument)* with the signal number as its argument. **TL;DR** it executes a function wheneve a signal is received |
 | `sigemptyset` |  |
-
 | `sigaddset` |  |
-
 | `sigaction` |  |
-
 | `kill` |  |
-
 | `getpid` |  |
-
 | `malloc` |  |
-
 | `free` |  |
-
 | `pause` |  |
-
 | `sleep` |  |
-
 | `usleep` |  |
-
 | `exit` |  |
 
