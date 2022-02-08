@@ -1,11 +1,16 @@
 ```text
-	      :::::::::  ::::::::::     :::     :::::::::    :::   :::   :::::::::: 
-	     :+:    :+: :+:          :+: :+:   :+:    :+:  :+:+: :+:+:  :+:         
-	    +:+    +:+ +:+         +:+   +:+  +:+    +:+ +:+ +:+:+ +:+ +:+          
-	   +#++:++#:  +#++:++#   +#++:++#++: +#+    +:+ +#+  +:+  +#+ +#++:++#      
-	  +#+    +#+ +#+        +#+     +#+ +#+    +#+ +#+       +#+ +#+            
-	 #+#    #+# #+#        #+#     #+# #+#    #+# #+#       #+# #+#             
-	###    ### ########## ###     ### #########  ###       ### ##########      
+################################################################################
+#                                                                              #
+#        ███▄ ▄███▓ ██▓ ███▄    █  ██▓▄▄▄█████▓ ▄▄▄       ██▓     ██ ▄█▀       #
+#       ▓██▒▀█▀ ██▒▓██▒ ██ ▀█   █ ▓██▒▓  ██▒ ▓▒▒████▄    ▓██▒     ██▄█▒        #
+#       ▓██    ▓██░▒██▒▓██  ▀█ ██▒▒██▒▒ ▓██░ ▒░▒██  ▀█▄  ▒██░    ▓███▄░        #
+#       ▒██    ▒██ ░██░▓██▒  ▐▌██▒░██░░ ▓██▓ ░ ░██▄▄▄▄██ ▒██░    ▓██ █▄        #
+#       ▒██▒   ░██▒░██░▒██░   ▓██░░██░  ▒██▒ ░  ▓█   ▓██▒░██████▒▒██▒ █▄       #
+#       ░ ▒░   ░  ░░▓  ░ ▒░   ▒ ▒ ░▓    ▒ ░░    ▒▒   ▓▒█░░ ▒░▓  ░▒ ▒▒ ▓▒       #
+#       ░  ░      ░ ▒ ░░ ░░   ░ ▒░ ▒ ░    ░      ▒   ▒▒ ░░ ░ ▒  ░░ ░▒ ▒░       #
+#       ░      ░    ▒ ░   ░   ░ ░  ▒ ░  ░        ░   ▒     ░ ░   ░ ░░ ░        #
+#              ░    ░           ░  ░                 ░  ░    ░  ░░  ░          #
+################################################################################
 ```
 
 ***
@@ -57,19 +62,18 @@ bull£%!§.
 
 | Function | Description |
 | -------- | ----------- |
-| `write`  | Not even gonna try explaining this one. C'mon, get your SH%! 
-together |
+| `write`  | Not even gonna try explaining this one. C'mon, get your SH%! together |
 | `ft_printf` | Ol' Reliable `printf`, but made by you, i.e. a crappy version of the original `printf` called `ft_printf` |
-| `signal` | Prototyped `void (*signal(int sig, void (*func)(int)))(int)`. What it basically does is that it keeps on listening for **specific** incoming signals. And whenever they come, it calls the function *(passed as its 2nd argument)* with the signal number as its argument. **TL;DR** it executes a function wheneve a signal is received |
+| `signal` | Prototyped `void (*signal(int sig, void (*func)(int)))(int)`.<br /> What it basically does is that it keeps on listening for **specific** incoming signals; and whenever they come, it calls the function *(passed as its 2nd argument)* with the signal number as its argument.<br />**TL;DR** it executes a function wheneve a signal is received |
 | `sigemptyset` |  |
 | `sigaddset` |  |
 | `sigaction` |  |
 | `kill` |  |
 | `getpid` |  |
-| `malloc` |  |
-| `free` |  |
+| `malloc` | Allocates memory to the heap. |
+| `free` | Frees allocated memory from heap |
 | `pause` |  |
-| `sleep` |  |
-| `usleep` |  |
-| `exit` |  |
+| `sleep` | You can think of it as an automatic Pause/Play function, you just give it how many seconds it should wait, and it does the rest for you |
+| `usleep` | Just like `sleep`, but this one works with _mili-seconds_ |
+| `exit` | exits a program with the _error code_ it was given as its parameter.<br />Usually, we pass either the Macro `EXIT_SUCCESS` or the macro `EXIT_FAILURE`, both are declared in the `stdlib.h` library |
 
