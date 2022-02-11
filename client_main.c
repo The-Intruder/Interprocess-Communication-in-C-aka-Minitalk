@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_main.c                                      :+:      :+:    :+:   */
+/*   client_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/09 18:35:31 by mnaimi            #+#    #+#             */
-/*   Updated: 2022/02/10 20:31:08 by mnaimi           ###   ########.fr       */
+/*   Created: 2022/02/10 19:53:31 by mnaimi            #+#    #+#             */
+/*   Updated: 2022/02/10 20:31:10 by mnaimi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,51 @@
 
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-
-void	handle_sig(int signum)
+void	p_err(void)
 {
+	write(2, RED, 9);
+	write(2, "\nERROR\t", 7);
+	write(2, NC, 7);
+	write(2, BLD, 4);
+	write(2, "Something's wrong, please try again.\n", 37);
+	write(2, NC, 7);
 }
 
 /* -------------------------------------------------------------------------- */
 
-int	main(void)
+int	ckeck_pid_arg(char *ascii_pid)
 {
-	t_sigaction	act;
-	t_sigaction	oact;
-	int			sigact_ret_vl;
+	int	i;
+	int	str_len;
 
-	printf("%sThe Server's PID is:%s\t%s%d%s\n", MGN, NC, BLD, getpid(), NC);
-	oact.sa_handler = handle_sig;
-	oact.sa_sigaction = handle_sig;
-	oact.sa_mask = SA_SIGINFO;
-	oact.sa_flags = NULL;
-	sigact_ret_vl = sigaction(SIGUSR1, &act, &oact);
+	i = 0;
+	str_len = ft_strlen(ascii_pid);
+	while (ft_isdigit(ascii_pid[i]))
+		++i;
+	if (i != str_len)
+		return (-1);
 	return (0);
-}	
+}
+
+/* -------------------------------------------------------------------------- */
+
+int	send_msg(int pid, char *msg)
+{
+	kill(pid, SIGUSR1);
+	kill(pid, SIGUSR2);
+	retur (0);
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+
+int	main(int argc, char **argv)
+{
+	if (argc != 3 || ckeck_pid_arg(argv[1]) != 0)
+		return (p_err(), -1);
+	send_msg(ft_atoi(argv[1]), argv[2]);
+	return (0);
+}
 
 /* -------------------------------------------------------------------------- */

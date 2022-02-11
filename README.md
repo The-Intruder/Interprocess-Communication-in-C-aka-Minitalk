@@ -59,105 +59,105 @@ _**Note:** Errors MUST be CORRECTLY handled._
 
   - **Library:** `unistd.h`
   - **Description:** Not even gonna try explaining this one. C'mon, get your SH%! together
-  - **Return Value:** 
+  - **Return Value:**
   - **Additional Notes:** you can view them by typing `man 2 write` on the terminal, don't be lazy.
-    <br />
 
 - `int ft_printf(char *str, ...);`
 
   - **Library:** `libft.h` _(the one you made earlier in the common-core)_
-  - **Description:** Ol' Reliable `printf`, but made by you, **i.e.** a crappy version of the original `printf` called `ft_printf`  
-    <br />
+  - **Description:** Ol' Reliable `printf`, but made by you, **i.e.** a crappy version of the original `printf` called `ft_printf`
 
 - `void( *signal(int sig,void(*handler)(int))(int)`:
 
   - **Library:** `signal.h`
   - **Description:** What it basically does is that it keeps on listening for _specific_ incoming signals; and whenever they come, it calls the function _(passed as its 2nd argument)_ with the signal number as its argument. _**TL;DR**_ it executes a function whenever a signal is received
-  - **Return Value:** It returns a 
+  - **Return Value:** It returns a
   - **Additional notes:** It doesn't _(necessarily)_ block other signals from arriving while the current handler is executing. And its behaviour varies between systems. As the linux _man_ describes it: _"The effects of `signal()` in a multi-threaded process are unspecified."_
-    <br />
 
 - `sigemptyset()`
 
   - **Library:**
   - **Description:** lorem ipsum
-    <br />
 
 - `sigaddset`
 
   - **Library:**
   - **Description:** lorem ipsum
-    <br />
 
 - `int sigaction(int sig,const struct sigaction *act,struct sigaction *oldact)`
 
   - **Library:** `signal.h`
   - **Description:** Same as `signal()`, but much more recommended,
-    <br />
+  - **Return Value:**
+  - **Additional Notes:**
+    1.
 
 - `kill`
 
   - **Library:**
   - **Description:** lorem ipsum
-    <br />
 
 - `pid_t getpid(void)`
+
   - **Library:** `unistd.h`
   - **Description:** When called, it simply returns the Process ID of the program that its being called from.
   - **Return Value:** The PID of the program
-  - **Additionnal Notes:** 
-    <br />
+  - **Additionnal Notes:**
 
 - `malloc`
 
   - **Library:**
   - **Description:** Allocates memory to the heap.
-    <br />
 
 - `free`
 
   - **Library:**
-  - **Description:** Frees allocated memory from heap  
-    <br />
+  - **Description:** Frees allocated memory from heap
 
 - `pause`
 
   - **Library:**
   - **Description:** lorem ipsum
-    <br />
 
 - `sleep`
 
   - **Library:**
-  - **Description:** You can think of it as an automatic Pause/Play function, you just give it how many seconds it should wait, and it does the rest for you  
-    <br />
+  - **Description:** You can think of it as an automatic Pause/Play function, you just give it how many seconds it should wait, and it does the rest for you
 
 - `usleep`
 
   - **Library:**
-  - **Description:** Just like `sleep`, but this one works with _mili-seconds_  
-    <br />
+  - **Description:** Just like `sleep`, but this one works with _mili-seconds_
 
 - `exit`
   - **Library:**
-  - **Description:** Exits a program with the _error code_ it was given as its parameter.<br />Usually, we pass either the Macro `EXIT_SUCCESS` or the macro `EXIT_FAILURE`, both are declared in the `stdlib.h` library
-    <br />
+  - **Description:** Exits a program with the _error code_ it was given as its parameter. Usually, we pass either the Macro `EXIT_SUCCESS` or the macro `EXIT_FAILURE`, both are declared in the `stdlib.h` library
 
 ### Additional fucntions _(not allowed in our project, but good to know if you're a nerd, no offense)_
 
 - `int fork(void);`
+
   - **Library:** `unistd.h`
   - **Description:** This function splits the program into two distinct processes, and all the following code gets executed by the two processes _(the parent process or the main process, and the child process)_.
   - **Return Value:**
   - **Additionnal Notes:**
 
 - `pid_t getpid(void)`
+
   - **Library:** `unistd.h`
   - **Description:** When called, it simply returns the Process ID of the program that its being e
   - **Return Value:**
   - **Additionnal Notes:**
 
 - `()`
+
+  - **Library:**
+  - **Description:**
+  - **Return Value:**
+  - **Additionnal Notes:**
+
+- `()`
+
   - **Library:**
   - **Description:**
   - **Return Value:**
@@ -169,8 +169,13 @@ _**Note:** Errors MUST be CORRECTLY handled._
   - **Return Value:**
   - **Additionnal Notes:**
 
-- `()`
-  - **Library:**
-  - **Description:**
-  - **Return Value:**
-  - **Additionnal Notes:**
+### What is `struct sigaction`
+
+It's basicaly a structure defined in the `<signal.h>` library, that holds certain dta needed by certain functions to operate with signals.
+
+It includes the following members:
+
+1. `sa_handler`: Pointer to a signal-catching function or one of the macros `SIG_IGN` or `SIG_DFL`.
+2. `sa_mask`: Additional set of signals to be blocked during execution of signal-catching function.
+3. `sa_flags`: Special flags to affect behavior of signal.
+4. `sa_sigaction`: Pointer to a signal-catching function.
