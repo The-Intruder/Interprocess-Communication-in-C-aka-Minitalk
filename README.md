@@ -84,13 +84,12 @@ _**Note:** Errors MUST be CORRECTLY handled._
   - **Library:**
   - **Description:** lorem ipsum
 
-- `int sigaction(int sig,const struct sigaction *act,struct sigaction *oldact)`
+- `int sigaction(int sig,const struct sigaction *act, struct sigaction *oldact)`
 
   - **Library:** `signal.h`
   - **Description:** Same as `signal()`, but much more recommended,
-  - **Return Value:**
+  - **Return Value:** It returns the value 0 if successful; otherwise the value -1 is returned and the global variable errno is set to indicate the error.
   - **Additional Notes:**
-    1.
 
 - `kill`
 
@@ -175,7 +174,17 @@ It's basicaly a structure defined in the `<signal.h>` library, that holds certai
 
 It includes the following members:
 
-1. `sa_handler`: Pointer to a signal-catching function or one of the macros `SIG_IGN` or `SIG_DFL`.
-2. `sa_mask`: Additional set of signals to be blocked during execution of signal-catching function.
+1. `union __sigaction_u`:
+   - `void (*__sa_handler)(int)`: `SIG_DFL`, `SIG_IGN`, or a pointer to a signal-handling function.
+   - `void (*__sa_sigaction)(int, siginfo_t *, void *)`: Pointer to a signal-handling function if `sa_flags` is set to `SA_SIGINFO`.
+
+2. `sa_mask`: .
 3. `sa_flags`: Special flags to affect behavior of signal.
-4. `sa_sigaction`: Pointer to a signal-catching function.
+
+### The proper way to terminate a program on signal catching
+
+The following may not be that useful in our program, but it is good to know overall.
+
+So whenever we have a program that listenes for some signals, we always have some code that needs to be executed while the signal is not received yet, so what if we wanted the program to terminate itself as soon as the signal is received, the most obvious choice is to have an `exit()` in our `handler()` function, but that will discard any unexecuted code, because as we know, the handler gets called as soon as the signal is received, so the code after the `signal` or `sigaction` function may not be properly executed.
+
+To avoid that, we declare a **global** variable of type `sig_atomic_t`

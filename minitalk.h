@@ -35,6 +35,13 @@
 /* -------------------------------- Typedef's ------------------------------- */
 typedef struct sigaction	t_sigaction;
 
+typedef struct s_sigvars {
+	t_sigaction	act;
+	t_sigaction	oact;
+	sigset_t	sigs_mask;
+	int			sigact_ret_vl;
+}	t_sigvars
+
 /* -------------------------------- Prototypes ------------------------------ */
 
 #endif

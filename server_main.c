@@ -18,26 +18,32 @@
 
 /* -------------------------------------------------------------------------- */
 
+void	handle_sig(int signum, siginfo_t *, void *)
+{
+}
+
 /* -------------------------------------------------------------------------- */
 
-void	handle_sig(int signum)
+void	init_sigvars_data(t_sigvars *vars)
 {
+	sigemptyset(&vars->sigs_mask);
+	sigaddset(&vars->sigs_mask, SIGUSR1);
+	sigaddset(&vars->sigs_mask, SIGUSR2);
+	vars->act.sa_handler = handle_sig;
+	vars->act.sa_sigaction = handle_sig;
+	vars->act.sa_mask = vars->sigs_mask;
+	vars->act.sa_flags = SA_SIGINFO;
+	vars->sigact_ret_vl = sigaction(SIGUSR1, &vars->act, &vars->oact);
 }
 
 /* -------------------------------------------------------------------------- */
 
 int	main(void)
 {
-	t_sigaction	act;
-	t_sigaction	oact;
-	int			sigact_ret_vl;
+	t_sigvars	vars;
 
 	printf("%sThe Server's PID is:%s\t%s%d%s\n", MGN, NC, BLD, getpid(), NC);
-	oact.sa_handler = handle_sig;
-	oact.sa_sigaction = handle_sig;
-	oact.sa_mask = SA_SIGINFO;
-	oact.sa_flags = NULL;
-	sigact_ret_vl = sigaction(SIGUSR1, &act, &oact);
+	init_sigvars_data(&vars);
 	return (0);
 }	
 
