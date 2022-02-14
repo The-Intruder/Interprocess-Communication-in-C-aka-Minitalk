@@ -56,13 +56,17 @@ $(OBJS_DIR):
 	@mkdir $(OBJS_DIR)
 
 clean:
-	@echo "\n${RED}Cleaning up Object files ...\n${NC}"
-	@rm -f ${OBJS_DIR}*.o ./libs/libft/*.o
+	@echo "\n${RED}Cleaning up ${GRA}libft${RED} Object files ...\n${NC}"
+	@rm -f ./libs/libft/*.o
 	@echo "${RED}Removing ${GRA}objs/${RED}folder ...\n${NC}"
-	@rm -rf objs
+	@rm -rf ${OBJS_DIR}
 
 fclean: clean
 	@echo "${RED}Cleaning up Archive files ...\n${NC}"
 	@rm -f ${NAME} ./libs/libft/*.a
 
+client: client_main.c minitalk.h
+	@gcc -Wall -Werror -Wextra client_main.c -L./libs/libft -lft -o client
 
+server: server_main.c minitalk.h
+	@gcc -Wall -Werror -Wextra server_main.c -L./libs/libft -lft -o server

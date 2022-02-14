@@ -14,6 +14,10 @@
 
 /* -------------------------------------------------------------------------- */
 
+volatile sig_atomic_t	g_isrunning = 1;
+
+/* -------------------------------------------------------------------------- */
+
 void	p_err(void)
 {
 	write(2, RED, 9);
@@ -44,9 +48,25 @@ int	ckeck_pid_arg(char *ascii_pid)
 
 int	send_msg(int pid, char *msg)
 {
-	kill(pid, SIGUSR1);
-	kill(pid, SIGUSR2);
-	retur (0);
+	short	i;
+	short	j;
+	char	c;
+
+	i = 0;
+	while (msg[i])
+	{
+		c = msg[i++];
+		j = -1;
+		while (++j < 8)
+		{
+			if (c & (1 << j))
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			usleep(200);
+		}
+	}
+	return (0);
 }
 
 /* -------------------------------------------------------------------------- */

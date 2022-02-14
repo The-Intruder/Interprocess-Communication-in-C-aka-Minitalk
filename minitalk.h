@@ -39,8 +39,7 @@ typedef struct s_sigvars {
 	t_sigaction	act;
 	t_sigaction	oact;
 	sigset_t	sigs_mask;
-	int			sigact_ret_vl;
-}	t_sigvars
+}	t_sigvars;
 
 /* -------------------------------- Prototypes ------------------------------ */
 
