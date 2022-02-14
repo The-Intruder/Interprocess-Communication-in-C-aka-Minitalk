@@ -1,11 +1,17 @@
+***
+
+_**README.md** not yet finished_
+
+***
+
 ```text
-        ##     ## #### ##    ## #### ########    ###    ##       ##    ##
-        ###   ###  ##  ###   ##  ##     ##      ## ##   ##       ##   ##
-        #### ####  ##  ####  ##  ##     ##     ##   ##  ##       ##  ##
-        ## ### ##  ##  ## ## ##  ##     ##    ##     ## ##       #####
-        ##     ##  ##  ##  ####  ##     ##    ######### ##       ##  ##
-        ##     ##  ##  ##   ###  ##     ##    ##     ## ##       ##   ##
-        ##     ## #### ##    ## ####    ##    ##     ## ######## ##    ##
+.___  ___.  __  .__   __.  __  .___________.    ___       __       __  ___ 
+|   \/   | |  | |  \ |  | |  | |           |   /   \     |  |     |  |/  / 
+|  \  /  | |  | |   \|  | |  | `---|  |----`  /  ^  \    |  |     |  '  /  
+|  |\/|  | |  | |  . `  | |  |     |  |      /  /_\  \   |  |     |    <   
+|  |  |  | |  | |  |\   | |  |     |  |     /  _____  \  |  `----.|  .  \  
+|__|  |__| |__| |__| \__| |__|     |__|    /__/     \__\ |_______||__|\__\ 
+                                                                           
 ```
 
 ---
@@ -56,45 +62,59 @@ _**Note:** Errors MUST be CORRECTLY handled._
 ## Allowed functions and what they do
 
 - `ssize_t write(int fd, const void *buf, size_t count);`
-
-  - **Library:** `unistd.h`
+  - **Library:** `<unistd.h>`
   - **Description:** Not even gonna try explaining this one. C'mon, get your SH%! together
-  - **Return Value:**
-  - **Additional Notes:** you can view them by typing `man 2 write` on the terminal, don't be lazy.
+  - **Return Value:** Number of written bytes on _SUCCESS_, -1 on _FAILURE_.
+  - **Additional Notes:** You can view them by typing `man 2 write` on the terminal, don't be lazy.
 
-- `int ft_printf(char *str, ...);`
+<br />
 
-  - **Library:** `libft.h` _(the one you made earlier in the common-core)_
-  - **Description:** Ol' Reliable `printf`, but made by you, **i.e.** a crappy version of the original `printf` called `ft_printf`
+- `int ft_printf(const char *str, ...);`
+  - **Library:** `"libft.h"` _(the one you made earlier in the common-core)_
+  - **Description:** Ol' Reliable `printf`, but made by you, **i.e.** a crappy version of the original `printf` called `ft_printf`.
+  - **Return Value:** It really just depends on your code.
+  - **Additional Notes:** Good Luck ?!?? Maybe ??
+
+<br />
 
 - `void( *signal(int sig,void(*handler)(int))(int)`:
-
-  - **Library:** `signal.h`
+  - **Library:** `<signal.h>`
   - **Description:** What it basically does is that it keeps on listening for _specific_ incoming signals; and whenever they come, it calls the function _(passed as its 2nd argument)_ with the signal number as its argument. _**TL;DR**_ it executes a function whenever a signal is received
   - **Return Value:** It returns a
-  - **Additional notes:** It doesn't _(necessarily)_ block other signals from arriving while the current handler is executing. And its behaviour varies between systems. As the linux _man_ describes it: _"The effects of `signal()` in a multi-threaded process are unspecified."_
+  - **Additional notes:** It doesn't _(necessarily)_ block other signals from arriving while the current handler is executing. And its behaviour varies between systems. the Linux _man_ describes it: _"The effects of `signal()` in a multi-threaded process are unspecified"_. Another thing is that it is not prefered if code portability is a necessity, for that, you should use `sigaction`.
 
-- `sigemptyset()`
+<br />
 
-  - **Library:**
-  - **Description:** lorem ipsum
+- `int sigemptyset(sigset_t *set);`
+  - **Library:** `<signal.h>`
+  - **Description:** takes a declared variable of type `sigset_t`, initializes the to empty, it is somwhat similar to `bzero()` or `memset(0)`.
+  - **Return Value:** Returns 0 on _SUCCESS_
+  - **Additional notes:** _(null)_
 
-- `sigaddset`
+<br />
 
-  - **Library:**
-  - **Description:** lorem ipsum
+- `int sigaddset(sigset_t *set, int signo);`
+  - **Library:** `<signal.h>`
+  - **Description:** Adds a signal to the set of signals already recorded in a variable of type `sigset_t`.
+  - **Return Value:** Returns 0 on _SUCCESS_, -1 on _FAILURE_
+  - **Additional notes:** _(null)_
 
-- `int sigaction(int sig,const struct sigaction *act, struct sigaction *oldact)`
+<br />
 
-  - **Library:** `signal.h`
-  - **Description:** Same as `signal()`, but much more recommended,
-  - **Return Value:** It returns the value 0 if successful; otherwise the value -1 is returned and the global variable errno is set to indicate the error.
-  - **Additional Notes:**
+- `int sigaction(int sig, const struct sigaction *act, struct sigaction *oldact)`
+  - **Library:** `<signal.h>`
+  - **Description:** Same as `signal()`, but much more recommended., it takes three args, as you can see. The first one is the _Signal_ to expect, the 2nd and the 3rd one is a struct of type `sigaction`. More on that later.
+  - **Return Value:** Returns 0 on _SUCCESS_, -1 on _FAILURE_.
+  - **Additional Notes:** _(null)_
+
+<br />
 
 - `kill`
 
   - **Library:**
   - **Description:** lorem ipsum
+
+<br />
 
 - `pid_t getpid(void)`
 
@@ -103,48 +123,55 @@ _**Note:** Errors MUST be CORRECTLY handled._
   - **Return Value:** The PID of the program
   - **Additionnal Notes:**
 
+<br />
+
 - `malloc`
 
   - **Library:**
   - **Description:** Allocates memory to the heap.
+
+<br />
 
 - `free`
 
   - **Library:**
   - **Description:** Frees allocated memory from heap
 
+<br />
+
 - `pause`
 
   - **Library:**
   - **Description:** lorem ipsum
+
+<br />
 
 - `sleep`
 
   - **Library:**
   - **Description:** You can think of it as an automatic Pause/Play function, you just give it how many seconds it should wait, and it does the rest for you
 
+<br />
+
 - `usleep`
 
   - **Library:**
   - **Description:** Just like `sleep`, but this one works with _mili-seconds_
 
+<br />
+
 - `exit`
   - **Library:**
   - **Description:** Exits a program with the _error code_ it was given as its parameter. Usually, we pass either the Macro `EXIT_SUCCESS` or the macro `EXIT_FAILURE`, both are declared in the `stdlib.h` library
 
-### Additional fucntions _(not allowed in our project, but good to know if you're a nerd, no offense)_
+<br />
+
+### Additional functions _(not allowed in our project, but useful to know)_
 
 - `int fork(void);`
 
   - **Library:** `unistd.h`
   - **Description:** This function splits the program into two distinct processes, and all the following code gets executed by the two processes _(the parent process or the main process, and the child process)_.
-  - **Return Value:**
-  - **Additionnal Notes:**
-
-- `pid_t getpid(void)`
-
-  - **Library:** `unistd.h`
-  - **Description:** When called, it simply returns the Process ID of the program that its being e
   - **Return Value:**
   - **Additionnal Notes:**
 
@@ -175,11 +202,13 @@ It's basicaly a structure defined in the `<signal.h>` library, that holds certai
 It includes the following members:
 
 1. `union __sigaction_u`:
-   - `void (*__sa_handler)(int)`: `SIG_DFL`, `SIG_IGN`, or a pointer to a signal-handling function.
-   - `void (*__sa_sigaction)(int, siginfo_t *, void *)`: Pointer to a signal-handling function if `sa_flags` is set to `SA_SIGINFO`.
+   - `void (*__sa_handler)(int)`: _defined as macro `sa_handler`_
+     - `SIG_DFL` _(default behaviour of the signal)_, `SIG_IGN` _(Ignore the signal)_, or a pointer to a signal-handling function.
+   - `void (*__sa_sigaction)(int, siginfo_t *, void *)`: _defined as macro `sa_sigaction`_
+     - Pointer to a signal-handling function if `sa_flags` is set to `SA_SIGINFO`.
 
-2. `sa_mask`: .
-3. `sa_flags`: Special flags to affect behavior of signal.
+2. `sa_mask`: Set of signals to be blocked _(pended)_ while the handler is still running.
+3. `sa_flags`: Special flags that affect the behavior of the signal.
 
 ### The proper way to terminate a program on signal catching
 

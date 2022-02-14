@@ -41,6 +41,13 @@ typedef struct s_sigvars {
 	sigset_t	sigs_mask;
 }	t_sigvars;
 
+typedef struct s_sighandle_data
+{
+	unsigned char	c;
+	unsigned short	i;
+}	t_sighandle_data;
+
+
 /* -------------------------------- Prototypes ------------------------------ */
 
 #endif

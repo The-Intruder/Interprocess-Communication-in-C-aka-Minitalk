@@ -38,7 +38,7 @@ OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
 HEADER := minitalk.h
 NAME := libmt.a
 
-.PHONY: all clean fclean re compile-server compile-client compile-all
+.PHONY: all clean fclean re server client both
 
 all: ${NAME}
 
@@ -70,3 +70,5 @@ client: client_main.c minitalk.h
 
 server: server_main.c minitalk.h
 	@gcc -Wall -Werror -Wextra server_main.c -L./libs/libft -lft -o server
+
+both: server client
