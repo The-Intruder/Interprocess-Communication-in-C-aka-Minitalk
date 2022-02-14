@@ -17,6 +17,11 @@
 volatile sig_atomic_t	g_isrunning = 1;
 
 /* -------------------------------------------------------------------------- */
+void	handle(int signum)
+{
+	signum = 0;
+}
+/* -------------------------------------------------------------------------- */
 
 void	p_err(void)
 {
@@ -56,14 +61,15 @@ int	send_msg(int pid, char *msg)
 	while (msg[i])
 	{
 		c = msg[i++];
-		j = -1;
-		while (++j < 8)
+		j = 0;
+		while (j < 8     )
 		{
 			if (c & (1 << j))
 				kill(pid, SIGUSR1);
 			else
 				kill(pid, SIGUSR2);
-			usleep(200);
+			pause();
+			j++;
 		}
 	}
 	return (0);
@@ -71,12 +77,18 @@ int	send_msg(int pid, char *msg)
 
 /* -------------------------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-
 int	main(int argc, char **argv)
 {
+	t_sigaction	act;
+	sigset_t	mask;
+
 	if (argc != 3 || ckeck_pid_arg(argv[1]) != 0)
 		return (p_err(), -1);
+	sigemptyset(&mask);
+	act.sa_handler = handle;
+	// sigaddset(&mask, SIGUSR1);
+	// act.sa_mask = mask;
+	sigaction(SIGUSR1, &act, NULL);
 	send_msg(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }

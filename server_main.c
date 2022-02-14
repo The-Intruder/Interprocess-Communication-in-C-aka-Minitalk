@@ -14,7 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-volatile sig_atomic_t	g_isrunning = 1;
+unsigned char	g_isrunning = 1;
 
 /* -------------------------------------------------------------------------- */
 
@@ -26,9 +26,7 @@ void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
 {
 	static char		c = 0;
 	static int		i = 0;
-	static pid_t	o_pid;
 
-	o_pid = siginfo->si_pid;
 	sigcontext = NULL;
 	if (signum == SIGUSR1)
 		c |= 1 << i;
@@ -39,10 +37,10 @@ void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
 		write(1, &c, 1);
 		c = 0;
 		i = 0;
-		usleep(100);
 	}
 	else
 		++i;
+	kill(siginfo->si_pid, SIGUSR1);
 }
 
 /* -------------------------------------------------------------------------- */
