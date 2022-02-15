@@ -34,6 +34,8 @@
 
 /* -------------------------------- Typedef's ------------------------------- */
 typedef struct sigaction	t_sigaction;
+typedef unsigned int		t_uint;
+typedef unsigned char		t_uchar;
 
 typedef struct s_sigvars {
 	t_sigaction	act;

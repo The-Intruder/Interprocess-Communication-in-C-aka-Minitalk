@@ -10,32 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-
-
-
 #include "minitalk.h"
 
 /* -------------------------------------------------------------------------- */
 
-// volatile sig_atomic_t	g_isrunning = 1;
-
-/* -------------------------------------------------------------------------- */
-void	handle(int signum)
+void	p_end_msg(int signum)
 {
-	signum = 0;
+	if (signum == SIGUSR1)
+	{
+		write(1, GRN, ft_strlen(GRN));
+		write(1, "\n\n\tMessage Sent Successfully\n\n", 30);
+		write(1, NC, ft_strlen(NC));
+	}
 }
+
 /* -------------------------------------------------------------------------- */
 
-void	p_err(void)
+void	p_err(char *error)
 {
 	write(2, RED, 9);
-	write(2, "\nERROR\t", 7);
+	write(2, "\nERROR ", 7);
 	write(2, NC, 7);
 	write(2, BLD, 4);
-	write(2, "Something's wrong, please try again.\n", 37);
+	write(2, "(", 1);
+	write(2, error, ft_strlen(error));
+	write(2, ")\tSomething's wrong, please try again.\n", 39);
 	write(2, NC, 7);
+	exit(0);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -56,24 +57,30 @@ int	ckeck_pid_arg(char *ascii_pid)
 
 /* -------------------------------------------------------------------------- */
 
-int	send_msg(int pid, unsigned char *msg)
+int	send_msg(int pid, char *msg)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned char	c;
+	t_uint	i;
+	t_uint	j;
+	t_uchar	c;
 
 	i = 0;
-	while (msg[i])
+	while (i <= ft_strlen(msg))
 	{
 		c = msg[i++];
 		j = 0;
 		while (j < 8)
 		{
-			if (c & (1 << j++))
-				kill(pid, SIGUSR1);
+			if(c & (1 << j++))
+			{
+				if (kill(pid, SIGUSR1) == -1)
+					p_err("SIGUSR1 Failure");
+			}
 			else
-				kill(pid, SIGUSR2);
-			pause();
+			{
+				if(kill(pid, SIGUSR2) == -1)
+					p_err("SIGUSR2 Failure");
+			}
+			usleep(200);
 		}
 	}
 	return (0);
@@ -84,19 +91,15 @@ int	send_msg(int pid, unsigned char *msg)
 int	main(int argc, char **argv)
 {
 	t_sigaction	act;
-	sigset_t	mask;
 
 	if (argc != 3 || ckeck_pid_arg(argv[1]) != 0)
-		return (p_err(), -1);
-	sigemptyset(&mask);
-	sigaddset(&mask, SIGUSR1);
-	act.sa_handler = handle;
-	act.sa_mask = mask;
-	// sigaddset(&mask, SIGUSR1);
-	// act.sa_mask = mask;
+		return (p_err("Invalid Arguments"), -1);
+	act.sa_handler = p_end_msg;
 	sigaction(SIGUSR1, &act, NULL);
-	send_msg(ft_atoi(argv[1]), (unsigned char *)argv[2]);
+	send_msg(ft_atoi(argv[1]), argv[2]);
 	return (0);
 }
 
 /* -------------------------------------------------------------------------- */
+
+

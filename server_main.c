@@ -14,76 +14,63 @@
 
 /* -------------------------------------------------------------------------- */
 
-//unsigned char	g_isrunning = 1;
-
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-
-// void	check_byte(unsigned int *i, unsigned int *c)
-// {
-// 	char	the_c;
-// 	if (*i != 7)
-// 		return ;
-// 	the_c = (unsigned char)(*c);
-// 	*i = 0;
-// 	*c = 0;
-
-// 	write(1, );
-// }
-
-// SIGUSR1 = 1
-// SIGUSR2 = 0
+void	p_pid(int pid)
+{
+	write(1, MGN, ft_strlen(MGN));
+	write(1, "The Server's PID is:\t", 21);
+	write(1, NC, ft_strlen(NC));
+	write(1, BLD, ft_strlen(BLD));
+	ft_putnbr_fd(pid, 1);
+	write(1, NC, ft_strlen(NC));
+	write(1, "\n\n", 2);
+}
 
 /* -------------------------------------------------------------------------- */
 
 void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
 {
-	static unsigned int		c = 0;
-	static unsigned short	i = 0;
+	static t_uint	c = 0;
+	static t_uint	i = 0;
+	static int		o_pid;
 
 	sigcontext = NULL;
-	if (signum == SIGUSR1)
-		c |= (1 << i);
-	else if (signum == SIGUSR2)
-		c &= (~(1 << i));
-	usleep(100);
-	++i;
-	if (i == 8)
+	if (o_pid && o_pid != siginfo->si_pid)
 	{
-		write(1, (unsigned char *)&c, 1);
 		c = 0;
 		i = 0;
+		write(1, "\n\n", 2);
 	}
-	usleep(100);
-	kill(siginfo->si_pid, SIGUSR1);
-}
-
-/* -------------------------------------------------------------------------- */
-
-void	init_sigvars_data(t_sigvars *vars)
-{
-	sigemptyset(&vars->sigs_mask);
-	sigaddset(&vars->sigs_mask, SIGUSR1);
-	sigaddset(&vars->sigs_mask, SIGUSR2);
-	vars->act.sa_sigaction = handle_sig;
-	vars->act.sa_mask = vars->sigs_mask;
-	vars->act.sa_flags = SA_SIGINFO;
+	o_pid = siginfo->si_pid;
+	if (signum == SIGUSR1 || signum == SIGUSR2)
+	{
+		if (signum == SIGUSR1)
+			c |= (1 << i);
+		++i;
+		if (i == 8)
+		{
+			write(1, &c, 1);
+			if (c == 0)
+				kill(o_pid, SIGUSR1);
+			c = 0;
+			i = 0;
+		}
+	}
 }
 
 /* -------------------------------------------------------------------------- */
 
 int	main(void)
 {
-	t_sigvars	vars;
+	t_sigaction	act;
 
-	printf("%sThe Server's PID is:%s\t%s%d%s\n\n", MGN, NC, BLD, getpid(), NC);
-	init_sigvars_data(&vars);
-	sigaction(SIGUSR1, &vars.act, NULL);
-	sigaction(SIGUSR2, &vars.act, NULL);
+	p_pid(getpid());
+	act.sa_sigaction = handle_sig;
+	act.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &act, NULL);
+	sigaction(SIGUSR2, &act, NULL);
 	while (1)
-		;
+		pause();
 	return (0);
-}	
+}
 
 /* -------------------------------------------------------------------------- */

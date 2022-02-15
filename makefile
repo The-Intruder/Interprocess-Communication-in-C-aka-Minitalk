@@ -28,7 +28,7 @@ CC_OPTS := ./libs/get_next_line/get_next_line.c \
 		-L. -lmt
 
 SRCS_DIR := srcs/
-SRCS_LST := 
+SRCS_LST := src1.c src2.c src3.c
 SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
 
 OBJS_DIR := objs/
