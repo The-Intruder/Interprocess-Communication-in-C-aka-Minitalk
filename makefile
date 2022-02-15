@@ -11,6 +11,8 @@
 ################################################################################
 ################################################################################
 
+############################# Terminal Color Codes #############################
+
 NC := \033[31;0m
 RED := \033[0;31;1m
 YEL := \033[0;33;1m
@@ -20,55 +22,46 @@ GRN := \033[0;32;1m
 MGN := \033[0;35;1m
 BLU := \033[0;34;1m
 
+################################################################################
+
 CC := gcc
 CC_FLAGS := -Wall -Wextra -Werror
-CC_OPTS := ./libs/get_next_line/get_next_line.c \
-		./libs/get_next_line/get_next_line_utils.c \
-		-L./libs/libft -lft \
-		-L. -lmt
-
-SRCS_DIR := srcs/
-SRCS_LST := src1.c src2.c src3.c
-SRCS := ${addprefix ${SRCS_DIR}, ${SRCS_LST}}
-
-OBJS_DIR := objs/
-OBJS_LST := ${patsubst %.c, %.o, ${SRCS_LST}}
-OBJS := ${addprefix ${OBJS_DIR}, ${OBJS_LST}}
+CC_OPTS := -Lft_printf/ -lftprintf
 
 HEADER := minitalk.h
-NAME := libmt.a
+NAME := libminitalk.a
 
-.PHONY: all clean fclean re server client both
+################################################################################
+
+.PHONY: all clean fclean re ${NAME}
 
 all: ${NAME}
 
-${NAME}: ${OBJS} minitalk.h
-	@make -C libs/libft/
-	@echo "\n\n${BLU}Creating ${GRA}${NAME}${BLU} archive file ...${NC}"
-	@ar -rcs ${NAME} ${OBJS}
-	@echo "\n${GRN}Library created successfully ...\n${NC}"
-
-${OBJS_DIR}%.o: ${SRCS_DIR}%.c minitalk.h
-	@echo "\n${MGN}Creating ${GRA}$@${MGN} file from ${GRA}$<${MGN} file ...${NC}"
-	@${CC} ${CC_FLAGS} -c $< -o $@
-
-$(OBJS_DIR):
-	@mkdir $(OBJS_DIR)
+${NAME}: minitalk.h
+	@make -C ft_printf/
 
 clean:
-	@echo "\n${RED}Cleaning up ${GRA}libft${RED} Object files ...\n${NC}"
-	@rm -f ./libs/libft/*.o
-	@echo "${RED}Removing ${GRA}objs/${RED}folder ...\n${NC}"
-	@rm -rf ${OBJS_DIR}
+	@echo "\n${RED}Cleaning up Object files ...\n${NC}"
+	@rm -f *.o ft_printf/*.o
 
 fclean: clean
 	@echo "${RED}Cleaning up Archive files ...\n${NC}"
-	@rm -f ${NAME} ./libs/libft/*.a
+	@rm -f ${NAME} ft_printf/*.a
 
-client: client_main.c minitalk.h
-	@gcc -Wall -Werror -Wextra client_main.c -L./libs/libft -lft -o client
+re: fclean all
 
-server: server_main.c minitalk.h
-	@gcc -Wall -Werror -Wextra server_main.c -L./libs/libft -lft -o server
+################################################################################
 
-both: server client
+exclean: fclean
+	@echo "${RED}Cleaning up Executable files ...\n${NC}"
+	@rm -f client server
+
+compile-client: client_main.c minitalk.h
+	@${CC} ${CC_FLAGS} ${CC_OPTS} client_main.c -o client
+
+compile-server: server_main.c minitalk.h
+	@${CC} ${CC_FLAGS} ${CC_OPTS} server_main.c -o server
+
+compile-all: compile-server compile-client
+
+################################################################################

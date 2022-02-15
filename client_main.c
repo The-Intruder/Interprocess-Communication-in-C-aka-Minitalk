@@ -14,34 +14,28 @@
 
 /* -------------------------------------------------------------------------- */
 
-void	p_end_msg(int signum)
+static void	p_end_msg(int signum)
 {
 	if (signum == SIGUSR1)
 	{
 		write(1, GRN, ft_strlen(GRN));
-		write(1, "\n\n\tMessage Sent Successfully\n\n", 30);
+		write(1, "\n\tMessage Sent Successfully\n\n", 30);
 		write(1, NC, ft_strlen(NC));
 	}
 }
 
 /* -------------------------------------------------------------------------- */
 
-void	p_err(char *error)
+static void	p_err(char *error)
 {
-	write(2, RED, 9);
-	write(2, "\nERROR ", 7);
-	write(2, NC, 7);
-	write(2, BLD, 4);
-	write(2, "(", 1);
-	write(2, error, ft_strlen(error));
-	write(2, ")\tSomething's wrong, please try again.\n", 39);
-	write(2, NC, 7);
-	exit(0);
+	ft_printf("%sERROR %s%s(%s)\tSomething's wrong, please try again.%s\n", \
+		RED, NC, BLD, error, NC);
+	exit(-1);
 }
 
 /* -------------------------------------------------------------------------- */
 
-int	ckeck_pid_arg(char *ascii_pid)
+static int	ckeck_pid_arg(char *ascii_pid)
 {
 	int	i;
 	int	str_len;
@@ -57,7 +51,7 @@ int	ckeck_pid_arg(char *ascii_pid)
 
 /* -------------------------------------------------------------------------- */
 
-int	send_msg(int pid, char *msg)
+static int	send_msg(int pid, char *msg)
 {
 	t_uint	i;
 	t_uint	j;

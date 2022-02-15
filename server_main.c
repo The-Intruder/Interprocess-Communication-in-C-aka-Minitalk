@@ -14,20 +14,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-void	p_pid(int pid)
-{
-	write(1, MGN, ft_strlen(MGN));
-	write(1, "The Server's PID is:\t", 21);
-	write(1, NC, ft_strlen(NC));
-	write(1, BLD, ft_strlen(BLD));
-	ft_putnbr_fd(pid, 1);
-	write(1, NC, ft_strlen(NC));
-	write(1, "\n\n", 2);
-}
-
-/* -------------------------------------------------------------------------- */
-
-void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
+static void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
 {
 	static t_uint	c = 0;
 	static t_uint	i = 0;
@@ -63,7 +50,8 @@ int	main(void)
 {
 	t_sigaction	act;
 
-	p_pid(getpid());
+	ft_printf("%sThe Server's PID is:\t%s%s%d%s\n\n", \
+		MGN, NC, BLD, getpid(), NC);
 	act.sa_sigaction = handle_sig;
 	act.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1, &act, NULL);

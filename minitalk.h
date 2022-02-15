@@ -17,9 +17,7 @@
 # include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include "libs/libft/libft.h"
-# include "libs/get_next_line/get_next_line.h"
+# include "ft_printf/ft_printf.h"
 
 /* --------------------------------- Macros --------------------------------- */
 # define BLD "\033[1m"
@@ -37,19 +35,7 @@ typedef struct sigaction	t_sigaction;
 typedef unsigned int		t_uint;
 typedef unsigned char		t_uchar;
 
-typedef struct s_sigvars {
-	t_sigaction	act;
-	t_sigaction	oact;
-	sigset_t	sigs_mask;
-}	t_sigvars;
-
-typedef struct s_sighandle_data
-{
-	unsigned char	c;
-	unsigned short	i;
-}	t_sighandle_data;
-
-
 /* -------------------------------- Prototypes ------------------------------ */
+/* --- (null) --- */
 
 #endif
