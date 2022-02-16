@@ -25,7 +25,6 @@ static void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
 	{
 		c = 0;
 		i = 0;
-		write(1, "\n\n", 2);
 	}
 	o_pid = siginfo->si_pid;
 	if (signum == SIGUSR1 || signum == SIGUSR2)

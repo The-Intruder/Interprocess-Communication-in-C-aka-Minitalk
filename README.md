@@ -5,12 +5,12 @@ _**README.md** not yet finished_
 ***
 
 ```text
-.___  ___.  __  .__   __.  __  .___________.    ___       __       __  ___ 
-|   \/   | |  | |  \ |  | |  | |           |   /   \     |  |     |  |/  / 
-|  \  /  | |  | |   \|  | |  | `---|  |----`  /  ^  \    |  |     |  '  /  
-|  |\/|  | |  | |  . `  | |  |     |  |      /  /_\  \   |  |     |    <   
-|  |  |  | |  | |  |\   | |  |     |  |     /  _____  \  |  `----.|  .  \  
-|__|  |__| |__| |__| \__| |__|     |__|    /__/     \__\ |_______||__|\__\ 
+	.___  ___.  __  .__   __.  __  .___________.    ___       __       __  ___ 
+	|   \/   | |  | |  \ |  | |  | |           |   /   \     |  |     |  |/  / 
+	|  \  /  | |  | |   \|  | |  | `---|  |----`  /  ^  \    |  |     |  '  /  
+	|  |\/|  | |  | |  . `  | |  |     |  |      /  /_\  \   |  |     |    <   
+	|  |  |  | |  | |  |\   | |  |     |  |     /  _____  \  |  `----.|  .  \  
+	|__|  |__| |__| |__| \__| |__|     |__|    /__/     \__\ |_______||__|\__\ 
                                                                            
 ```
 ---
@@ -45,7 +45,7 @@ an error.
 
 Launching the `client` executable must be *(after the `server` got launched, and)
 *followed by the `server`'s PID and the string that we want to send, just like
-this:
+this*:
 
 ```bash
 user@host$ ./client <PID> "lorem ipsum"
@@ -60,139 +60,70 @@ _**Note:** Errors MUST be CORRECTLY handled._
 
 ## Allowed functions and what they do
 
-- `ssize_t write(int fd, const void *buf, size_t count);`
-  - **Library:** `<unistd.h>`
-  - **Description:** Not even gonna try explaining this one. C'mon, get your SH%! together
-  - **Return Value:** Number of written bytes on _SUCCESS_, -1 on _FAILURE_.
-  - **Additional Notes:** You can view them by typing `man 2 write` on the terminal, don't be lazy.
+```c
+/* ------------------------------ Prototypes -------------------------------- */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+ssize_t	write(int fd, const void *buf, size_t count);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	ft_printf(const char *str, ...);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+void	*signal(int sig, void *handler)(int);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	sigemptyset(sigset_t *set);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	sigaddset(sigset_t *set, int signo);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	sigaction(int sig, \
+	const struct sigaction *act, \
+	struct sigaction *oldact);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	kill(pid_t pid, int sig);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+pid_t	getpid(void);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+void	*malloc(size_t size);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+void	free(void *ptr);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	pause(void);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+unsigned int	sleep(unsigned int seconds);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int	usleep(useconds_t microseconds);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+void	exit(int status);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+```
 
-<br />
-
-- `int ft_printf(const char *str, ...);`
-  - **Library:** `"libft.h"` _(the one you made earlier in the common-core)_
-  - **Description:** Ol' Reliable `printf`, but made by you, **i.e.** a crappy version of the original `printf` called `ft_printf`.
-  - **Return Value:** It really just depends on your code.
-  - **Additional Notes:** Good Luck ?!?? Maybe ??
-
-<br />
-
-- `void( *signal(int sig,void(*handler)(int))(int)`:
-  - **Library:** `<signal.h>`
-  - **Description:** What it basically does is that it keeps on listening for _specific_ incoming signals; and whenever they come, it calls the function _(passed as its 2nd argument)_ with the signal number as its argument. _**TL;DR**_ it executes a function whenever a signal is received
-  - **Return Value:** It returns a
-  - **Additional notes:** It doesn't _(necessarily)_ block other signals from arriving while the current handler is executing. And its behaviour varies between systems. the Linux _man_ describes it: _"The effects of `signal()` in a multi-threaded process are unspecified"_. Another thing is that it is not prefered if code portability is a necessity, for that, you should use `sigaction`.
-
-<br />
-
-- `int sigemptyset(sigset_t *set);`
-  - **Library:** `<signal.h>`
-  - **Description:** takes a declared variable of type `sigset_t`, initializes the to empty, it is somwhat similar to `bzero()` or `memset(0)`.
-  - **Return Value:** Returns 0 on _SUCCESS_
-  - **Additional notes:** _(null)_
-
-<br />
-
-- `int sigaddset(sigset_t *set, int signo);`
-  - **Library:** `<signal.h>`
-  - **Description:** Adds a signal to the set of signals already recorded in a variable of type `sigset_t`.
-  - **Return Value:** Returns 0 on _SUCCESS_, -1 on _FAILURE_
-  - **Additional notes:** _(null)_
-
-<br />
-
-- `int sigaction(int sig, const struct sigaction *act, struct sigaction *oldact)`
-  - **Library:** `<signal.h>`
-  - **Description:** Same as `signal()`, but much more recommended., it takes three args, as you can see. The first one is the _Signal_ to expect, the 2nd and the 3rd one is a struct of type `sigaction`. More on that later.
-  - **Return Value:** Returns 0 on _SUCCESS_, -1 on _FAILURE_.
-  - **Additional Notes:** _(null)_
-
-<br />
-
-- `kill`
-
-  - **Library:**
-  - **Description:** lorem ipsum
-
-<br />
-
-- `pid_t getpid(void)`
-
-  - **Library:** `unistd.h`
-  - **Description:** When called, it simply returns the Process ID of the program that its being called from.
-  - **Return Value:** The PID of the program
-  - **Additionnal Notes:**
-
-<br />
-
-- `malloc`
-
-  - **Library:**
-  - **Description:** Allocates memory to the heap.
-
-<br />
-
-- `free`
-
-  - **Library:**
-  - **Description:** Frees allocated memory from heap
-
-<br />
-
-- `pause`
-
-  - **Library:**
-  - **Description:** lorem ipsum
-
-<br />
-
-- `sleep`
-
-  - **Library:**
-  - **Description:** You can think of it as an automatic Pause/Play function, you just give it how many seconds it should wait, and it does the rest for you
-
-<br />
-
-- `usleep`
-
-  - **Library:**
-  - **Description:** Just like `sleep`, but this one works with _mili-seconds_
-
-<br />
-
-- `exit`
-  - **Library:**
-  - **Description:** Exits a program with the _error code_ it was given as its parameter. Usually, we pass either the Macro `EXIT_SUCCESS` or the macro `EXIT_FAILURE`, both are declared in the `stdlib.h` library
-
-<br />
+| Function |   Library    | Return Value | Description |
+| :------------- | :----------: | :----------- | :---------- |
+|     **write**      | `<unistd.h>` | Number of written bytes on _SUCCESS_, `-1` on _FAILURE_. | Not even gonna try explaining this one. C'mon, get your SH%! together. You can view everything about it by typing `man 2 write` on the terminal, don't be lazy. |
+|     **ft_printf**      | `"libft.h"` _(the one you made earlier in the common-core)_ | It really just depends on how you've coded it. | Ol' Reliable `printf`, but made by you, **i.e.** a crappy version of the original `printf` called `ft_printf`. |
+|     **signal**      | `<signal.h>` | Lorem Ipsum | It executes a function whenever a signal is received. It doesn't _(necessarily)_ block other signals from arriving while the current handler is executing |
+|     **sigemptyset**      | `<signal.h>` | Returns 0 on _SUCCESS_|  takes a declared variable of type `sigset_t`, initializes the to empty, it is somwhat similar to `bzero()` or `memset(0)`.|
+|     **sigaddset**      | `<signal.h>` | Returns 0 on _SUCCESS_, -1 on _FAILURE_ |  Adds a signal to the set of signals already recorded in a variable of type `sigset_t`. |
+|     **sigaction**      | `<signal.h>` | Returns 0 on _SUCCESS_, -1 on _FAILURE_. | Same as `signal()`, but much more recommended., it takes three args, as you can see. The first one is the _Signal_ to expect, the 2nd and the 3rd one is a struct of type `sigaction`. More on that later. |
+|     ****      | Lorem Ipsum | Lorem Ipsum | Lorem Ipsum |
+|     **7**      | `unistd.h` | The PID of the program | When called, it simply returns the Process ID of the program that its being called from. |
+|     **8**      | Lorem Ipsum | Lorem Ipsum | Lorem Ipsum |
+|     **9**      | Lorem Ipsum | Lorem Ipsum | Lorem Ipsum |
+|     **10**     | Lorem Ipsum | Lorem Ipsum | Lorem Ipsum |
+|     **11**     | Lorem Ipsum | Lorem Ipsum | Lorem Ipsum |
+|     **12**     | Lorem Ipsum | Lorem Ipsum | Lorem Ipsum |
+|     **13**     | Lorem Ipsum | Lorem Ipsum | Exits a program with the _error code_ it was given as its parameter. Usually, we pass either the Macro `EXIT_SUCCESS` or the macro `EXIT_FAILURE`, both are declared in the `stdlib.h` library |
 
 ### Additional functions _(not allowed in our project, but useful to know)_
 
-- `int fork(void);`
+```c
+/* ------------------------------ Prototypes -------------------------------- */
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+int fork(void);
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+```
 
-  - **Library:** `unistd.h`
-  - **Description:** This function splits the program into two distinct processes, and all the following code gets executed by the two processes _(the parent process or the main process, and the child process)_.
-  - **Return Value:**
-  - **Additionnal Notes:**
-
-- `()`
-
-  - **Library:**
-  - **Description:**
-  - **Return Value:**
-  - **Additionnal Notes:**
-
-- `()`
-
-  - **Library:**
-  - **Description:**
-  - **Return Value:**
-  - **Additionnal Notes:**
-
-- `()`
-  - **Library:**
-  - **Description:**
-  - **Return Value:**
-  - **Additionnal Notes:**
+| Function Index |   Library    | Return Value | Description |
+| :------------- | :----------: | :----------- | :---------- |
+|     **1**      | `<unistd.h>` |  | This function splits the program into two distinct processes, and all the following code gets executed by the two processes _(the parent process or the main process, and the child process)_. |
 
 ### What is `struct sigaction`
 
