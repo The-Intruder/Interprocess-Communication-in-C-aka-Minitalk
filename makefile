@@ -34,7 +34,7 @@ NAME := libminitalk.a
 ################################################################################
 
 .PHONY: all clean fclean re ${NAME} compile-server compile-client compile-all \
-	compile-bonus
+	compile-bonus compile-client-bonus compile-server-bonus compile-bonus;
 
 all: ${NAME}
 
@@ -49,7 +49,7 @@ fclean: clean
 	@echo "${RED}Cleaning up Archive files ...\n${NC}"
 	@rm -f ${NAME} ft_printf/*.a
 
-re: fclean all
+re: exclean all
 
 bonus: re
 
@@ -65,7 +65,7 @@ compile-client: client_main.c minitalk.h
 compile-server: server_main.c minitalk.h
 	@${CC} ${CC_FLAGS} ${CC_OPTS} server_main.c -o server
 
-compile-all: ${NAME} compile-server compile-client
+compile-all: re compile-server compile-client
 	@echo "\n${YEL}Executables compiled successfully${NC}\n"
 
 ################################################################################
@@ -76,7 +76,7 @@ compile-client-bonus: client_main_bonus.c minitalk_bonus.h
 compile-server-bonus: server_main_bonus.c minitalk_bonus.h
 	@${CC} ${CC_FLAGS} ${CC_OPTS} server_main_bonus.c -o server
 
-compile-bonus: compile-server-bonus compile-client-bonus
+compile-bonus: re compile-server-bonus compile-client-bonus
 	@echo "\n${YEL}Executables compiled successfully${NC}\n"
 
 ################################################################################

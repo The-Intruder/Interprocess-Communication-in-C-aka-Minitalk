@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server_main.c                                      :+:      :+:    :+:   */
+/*   server_main_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mnaimi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 /* -------------------------------------------------------------------------- */
 
@@ -23,7 +23,7 @@ static void	handle_sig(int signum, siginfo_t *siginfo, void *sigcontext)
 	sigcontext = NULL;
 	if (signum == SIGUSR1 || signum == SIGUSR2)
 	{
-		if (o_pid && o_pid != siginfo->si_pid)
+		if (o_pid > 0 && o_pid != siginfo->si_pid)
 		{
 			c = 0;
 			i = 0;

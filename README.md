@@ -73,9 +73,7 @@ int	sigemptyset(sigset_t *set);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 int	sigaddset(sigset_t *set, int signo);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-int	sigaction(int sig, \
-	const struct sigaction *act, \
-	struct sigaction *oldact);
+int	sigaction(int sig, const struct sigaction *act, struct sigaction *oldact);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 int	kill(pid_t pid, int sig);
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
