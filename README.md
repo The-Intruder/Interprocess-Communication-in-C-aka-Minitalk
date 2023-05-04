@@ -16,14 +16,14 @@
   </p>
 </p>
 
-<div  style="display: flex; justify-content: center;">
-<a  href="https://twitter.com/i_am_amine" target="_blank">
-  <img  alt="Twitter Follow"  src="https://img.shields.io/twitter/follow/i_am_amine?style=social">
-</a>
-<img  src="https://img.shields.io/github/repo-size/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk"  alt="Repo Size">
-<img  src="https://img.shields.io/github/last-commit/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk"  alt="Last Commit">
-<img  src="https://img.shields.io/github/license/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk" alt="License" >
-<img  src="https://img.shields.io/badge/Made%20with-❤-1f425f.svg"  alt="made-with-love">
+<div align="center">
+  <a  href="https://twitter.com/i_am_amine" target="_blank">
+    <img  alt="Twitter Follow"  src="https://img.shields.io/twitter/follow/i_am_amine?style=social">
+  </a>
+  <img  src="https://img.shields.io/github/repo-size/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk"  alt="Repo Size">
+  <img  src="https://img.shields.io/github/last-commit/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk"  alt="Last Commit">
+  <img  src="https://img.shields.io/github/license/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk" alt="License" >
+  <img  src="https://img.shields.io/badge/Made%20with-❤-1f425f.svg"  alt="made-with-love">
 </div>
 
 
