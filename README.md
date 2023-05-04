@@ -1,37 +1,174 @@
-***
+<br/>
+<p align="center">
+  <a href="https://github.com/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk">
+    <img src="https://img.icons8.com/cotton/512/binary-file.png" alt="Logo" width="80" height="80">
+  </a>
 
-_**README.md** not yet finished_
+  <h3 align="center">Interprocess Communication in C <em>(Minitalk)</em></h3>
 
-***
+  <p align="center">
+    A simple client-server communication program implemented in C, which allows for the exchange of messages between a client and server over a network using only Unix signals.
+    <br/>
+    <br/>
+    <a href="https://github.com/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk/issues">Report Bug</a>
+    .
+    <a href="https://github.com/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk/issues">Request Feature</a>
+  </p>
+</p>
 
-```text
-	.___  ___.  __  .__   __.  __  .___________.    ___       __       __  ___ 
-	|   \/   | |  | |  \ |  | |  | |           |   /   \     |  |     |  |/  / 
-	|  \  /  | |  | |   \|  | |  | `---|  |----`  /  ^  \    |  |     |  '  /  
-	|  |\/|  | |  | |  . `  | |  |     |  |      /  /_\  \   |  |     |    <   
-	|  |  |  | |  | |  |\   | |  |     |  |     /  _____  \  |  `----.|  .  \  
-	|__|  |__| |__| |__| \__| |__|     |__|    /__/     \__\ |_______||__|\__\ 
-                                                                           
+<div  style="display: flex; justify-content: center;">
+<a  href="https://twitter.com/i_am_amine" target="_blank">
+  <img  alt="Twitter Follow"  src="https://img.shields.io/twitter/follow/i_am_amine?style=social">
+</a>
+<img  src="https://img.shields.io/github/repo-size/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk"  alt="Repo Size">
+<img  src="https://img.shields.io/github/last-commit/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk"  alt="Last Commit">
+<img  src="https://img.shields.io/github/license/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk" alt="License" >
+<img  src="https://img.shields.io/badge/Made%20with-❤-1f425f.svg"  alt="made-with-love">
+</div>
+
+
+## Table Of Contents
+
+- [Table Of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+  - [Creating A Pull Request](#creating-a-pull-request)
+- [License](#license)
+- [Authors](#authors)
+- [Acknowledgements](#acknowledgements)
+
+## About The Project
+
+As said before, Minitalk is a client-server communication program implemented in C. It allows for the exchange of messages between a client and server over a network using only signals.
+
+The goal of the Minitalk project is to demonstrate interprocess communication (IPC) using signals in Unix-like systems. It showcases how two separate processes, the client and the server, can establish a reliable communication channel using signals to transmit data.
+
+The Minitalk project consists of two main components:
+
+- **Server:** The server is responsible for receiving messages from the client and displaying them. It waits for incoming signals from the client, decodes the binary data, and prints the corresponding message to the console.
+
+- **Client:** The client is responsible for sending messages to the server. It takes user input, converts it to binary data, and transmits it to the server using signals.
+
+The communication between the client and server is achieved through the use of UNIX signals, specifically `SIGUSR1` and `SIGUSR2`. The bits of the message are encoded as a series of signals, where `SIGUSR1` represents a binary 1 and `SIGUSR2` represents a binary 0.
+
+The Minitalk project provides an interesting opportunity to explore the concepts of signals, signal handling, binary encoding, and interprocess communication in a practical manner. It showcases how signals can be leveraged to establish a lightweight and efficient communication mechanism between processes, while gaining valuable insights into low-level system programming, signal handling techniques, and the challenges of synchronization and data integrity in interprocess communication.
+
+## Built With
+
+The Minitalk project is built using the following technologies and concepts:
+
+- **C Programming Language:** The entire project is implemented in the C programming language, leveraging its low-level capabilities and system APIs for signal handling and interprocess communication.
+
+- **UNIX Signals:** The communication between the client and server in Minitalk is achieved through the use of UNIX signals. The SIGUSR1 and SIGUSR2 signals are utilized to represent binary data for message transmission.
+
+- **Unix-like Systems:** The project is designed to run on Unix-like systems such as Linux and macOS, which provide the necessary system APIs for signal handling and interprocess communication.
+
+## Getting Started
+
+These instructions will guide you on how to get the Minitalk project up and running on your local machine. The following steps assume you are using a Unix-like system.
+
+### Prerequisites
+
+Before running the Minitalk project, ensure that you have the following prerequisites installed:
+
+- **GCC:** The GNU Compiler Collection (GCC) is required to compile the C source code. You can install GCC using package managers like `apt` or `brew` based on your operating system.
+
+## Usage
+
+Follow these steps to install and run the Minitalk project:
+
+1. Clone the project repository:
+
+```bash
+git clone https://github.com/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk minitalk
 ```
----
 
-# Preface
+2. Change into the project directory:
 
-This project is NOT quite straight-forward, and I haven't found any ressource
-that explains it in a clear way, as a matter of fact, I haven't found any
-ressource that explains this project at all, so I thought to myself "Well
-there's always a first time for everything, so why not do it youself!!". And
-that is how I made the horrible thing that you're about to read, so be ready,
-and prepare yourself for you're about to lay your eyes on the most terrible
-project documentation ever. You've been warned.
+```bash
+cd minitalk
+```
 
-_**P.S.:** If there is anything that you don't like about this `README.md` or if
-something is not quite right, please feel free to hit me up with a DM, either on
-Twitter, IG, or just by shouting my name out loud three times, and I'll
-immediatly spawn in front of you, I kid you not._
+3. Compile the source code using the Makefile:
 
----
+```bash
+make bonus
+```
 
+4. Run the server:
+
+```bash
+./server
+```
+
+5. Run the client in a separate terminal window or tab:
+
+```bash
+./client <SERVER_PID> <MESSAGE>
+```
+
+  - Replace `<SERVER_PID>` with the process ID of the server (printed when the server starts), and `<MESSAGE>` with the message you want to send.
+
+  - ***Note:** You can open a new terminal window or tab by pressing `Ctrl+Shift+T` (Linux) or `Command+T` (macOS).*
+
+6. Observe the message being received and displayed by the server.
+
+Congratulations! You have successfully set up and run the Minitalk project on your local machine.
+
+## Roadmap
+
+This roadmap outlines the key milestones and potential future enhancements for the Minitalk project:
+
+- **Basic Client-Server Communication:** Implement the basic functionality of the client and server, allowing for the exchange of messages using signals.
+
+- **Error Handling and Validation:** Enhance the project by implementing error handling and input validation to ensure robustness and prevent unexpected behavior.
+
+- **Signal Handling:** Refine the signal handling mechanism to handle edge cases, such as signal interruptions, signal queuing, and signal blocking.
+
+- **Large Message Support:** Modify the project to support the transmission of large messages by dividing them into smaller chunks and sending them sequentially.
+
+- **Encryption and Security:** Explore methods to enhance the security of the communication channel, such as implementing encryption algorithms to secure message transmission.
+
+- **Performance Optimization:** Analyze the performance of the project and identify areas for optimization, such as reducing signal latency, minimizing resource usage, and improving overall efficiency.
+
+- **Cross-Platform Support:** Adapt the project to be compatible with different operating systems and platforms, broadening its usability and reach.
+
+The roadmap provides a general outline of the potential future steps for the Minitalk project.
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+- If you have suggestions for adding or removing projects, feel free to [open an issue](https://github.com/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk/issues/new) to discuss it, or directly create a pull request after you edit the _README.md_ file with necessary changes.
+- Please make sure you check your spelling and grammar.
+- Create individual PR for each suggestion.
+
+### Creating A Pull Request
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the **GPL-3** License. See [LICENSE](https://github.com/The-Intruder/Interprocess-Communication-in-C-aka-Minitalk/blob/main/LICENSE.md) for more information.
+
+## Authors
+
+- **Mohamed Amine Naimi** aka ***[The-Intruder](https://github.com/The-Intruder/)*** - _Computer Science Student_ - *Built the Minitalk project*
+
+## Acknowledgements
+
+- [The-Intruder](https://github.com/The-Intruder/)
+
+<!--
 ## Project Description
 
 From what I understood, this project is all about sending messages from one
@@ -145,3 +282,4 @@ The following may not be that useful in our program, but it is good to know over
 So whenever we have a program that listenes for some signals, we always have some code that needs to be executed while the signal is not received yet, so what if we wanted the program to terminate itself as soon as the signal is received, the most obvious choice is to have an `exit()` in our `handler()` function, but that will discard any unexecuted code, because as we know, the handler gets called as soon as the signal is received, so the code after the `signal` or `sigaction` function may not be properly executed.
 
 To avoid that, we declare a **global** variable of type `sig_atomic_t`
+-->
